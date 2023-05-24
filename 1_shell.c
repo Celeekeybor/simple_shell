@@ -1,10 +1,10 @@
 #include "celem.h"
 /**
- * empty_line - emptiness
+ * blank_space - emptiness
  * @stats: line
  * Return: tr/fl
  */
-int empty_line(char *stats)
+int blank_space(char *stats)
 {
 int loop;
 for (loop = 0; stats[loop] != '\0'; loop++)
