@@ -1,27 +1,29 @@
 #include "main.h"
 
 /**
- * execute - execute command path, child process
- * @args: arguments
- * Return: exit status
+ * execute - implement path
+ * @param: parameter
+ * Return: 0
  */
 
-int execute(char **args)
+int execute(char **param)
 {
-	int id = fork(), status;
+	int value = fork(), output;
 
-	if (id == 0)
+	if (value == 0)
 	{
-		if (execve(args[0], args, environ) == -1)
+		if (execve(param[0], param, environ) == -1)
 			perror("Error");
 	}
 	else
 	{
-		wait(&status);
-		if (WIFEXITED(status))
-			status = WEXITSTATUS(status);
+		wait(&output);
+		if (WIFEXITED(output))
+        {
+            output = WEXITSTATUS(output);
+        }
 	}
 
-	return (status);
+	return (output);
 }
 
