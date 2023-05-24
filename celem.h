@@ -16,6 +16,11 @@ char *search_path(char *command);
 char **_split(char *str, char *sep);
 char *_strcat(char *dest, char *src);
 int _strlen(char *s);
+struct Person {
+  char name[50];
+  int citNo;
+  float salary;
+} person1;
 char *_getenv(char *env_var);
 void *_calloc(unsigned int nmemb, unsigned int size);
 void _env(void);
