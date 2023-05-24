@@ -1,40 +1,58 @@
 #ifndef _SHELL_H_
 #define _SHELL_H_
 
-#include <string.h>
+/*libraries*/
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
+#include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-#include <stdlib.h>
-#include <signal.h>
-extern char **environ;
-extern int dircount;
-#define DELIM " \n\t"
 
-void env(char **env);
-int _strlen(char *s);
+/*main.c*/
+void INThandler(int sig);
+void print_dollar(void);
+
+/*find_command.c*/
+unsigned int find_length_command(char *s);
+char **array_strtok(char *str);
+
+/*execute.c*/
+void execute(char **commands, char *buffer, char **env,
+		char **argv, int count);
+
+/*function_for_strings.c*/
+char *_strncpy(char *dest, char *src, int n);
+char *_strncpyconst(char *dest, const char *src, int n);
+unsigned int _strlen_const(const char *str);
+unsigned int _strlen(char *str);
 int _strcmp(char *s1, char *s2);
-char *_strdup(char *str);
-void prompt(void);
-char *get_line(void);
-char **split_line(char *line);
-char *get_env(char **env);
-char *pathCat(char *dir, char *av);
-char **dirTok(char **env);
-void loop(char **env);
-char *checkPath(char **dir, char *command);
-int execute(char *fullPath, char **command);
-int exit_sh(char **command);
-int cd(char **command);
-int printenv(char **command);
-int checkBuiltins(char *combine, char **command);
-void handler(int sig);
-void buffers1(char *line, char **command);
-void buffers2(char **dir, char *combine);
-void buffers3(char **tokens, char *buf);
-void buffers4(char **tok, char *buf2);
-void buffers5(char *dup);
-#endif
+
+/*env.c*/
+unsigned int find_num_dir(char *path);
+char **store_e_variables(char *fir_com, char **environ);
+char *_getenv(const char *name, char **environ);
+char *_strncpcommand(char *dest, char *src, char *command, int n, int c);
+void print_env(char **environ);
+
+/*free_all.c*/
+void free_all_dp(char **ptr);
+void parent_free_commands(char *buffer, char **commands);
+void send_to_free(char *buffer, char **commands);
+
+/*error_messages.c*/
+void build_message(char **av, char *fir_com, int count);
+int _puterror(char c);
+void end_file(char *buffer);
+void fork_fail(void);
+
+/*child_process.c*/
+void null_command(char *buffer);
+void get_out(char *buffer, char **commands);
+void env_end(char *buffer, char **commands, char **env);
+void _path(char **commands, char *buffer, char **env, char **argv, int count);
+
+#endif /*SHELL.H*/
 

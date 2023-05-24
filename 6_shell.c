@@ -1,136 +1,96 @@
 #include "shell.h"
+
 /**
- * pathCat - concats directory and user input to check for builitin
- * @dir: directory
- * @input: user input
- * Return: buffer to directory
- */
-char *pathCat(char *dir, char *input)
+* _strncpy - Function that copies a string into other
+*@dest: destination of the string
+*@src: string to copy
+*@n: length of the string
+*Return: dest
+*/
+
+char *_strncpy(char *dest, char *src, int n)
 {
-	int i, k, len1, len2;
-	char *buf;
+	int i;
 
-	len1 = _strlen(dir);
-	len2 = _strlen(input);
+	for (i = 0; i < n && src[i] != '\0'; i++)
+		dest[i] = src[i];
 
-	buf = malloc(4096);
-	buffers4(NULL, buf);
+	for ( ; i < n; i++)
+		dest[i] = '\0';
 
-	i = 0;
-	while (i < len1)
-	{
-		buf[i] = dir[i];
-		i++;
-	}
-	k = 0;
-	while (i < (len1 + len2))
-	{
-		buf[i] = input[k];
-		i++;
-		k++;
-	}
-	buf[i] = '\0';
-	return (buf);
+	return (dest);
 }
 
 /**
- * get_env - gets env in order to navigate PATH
- * @env: double pointer
- * Return: buf
- */
-char *get_env(char **env)
+* _strncpyconst - Function that copies a constant string into other
+*@dest: destination of the string
+*@src: string to copy
+*@n: length of the string
+*Return: dest
+*/
+
+char *_strncpyconst(char *dest, const char *src, int n)
 {
-	int i, k;
-	char *start, *buf, *str = "PATH=";
+	int i;
 
-	i = 0;
-	while (env[i])
-	{
-		k = 0;
-		while (env[i][k] == str[k])
-		{
-			if (env[i][k + 1] == str[k + 1])
-			{
-				start = env[i];
-				break;
-			}
-			k++;
-		}
-		i++;
-	}
-	_strlen(start);
-	buf = malloc(4096);
-	buffers3(NULL, buf);
-	i = 0;
-	k = 0;
-	while (start[i] != '\0')
-	{
-		if (start[i] == ':')
-		{
-			buf[k] = '/';
-			k++;
-		}
-		buf[k] = start[i];
-		i++;
-		k++;
-	}
-	buf[k] = '/';
-	k++;
-	buf[k] = '\0';
-	return (buf);
-}
-/**
- * dirTok - split directories to tokens
- * @env: double pointer
- * Return: tokens
- */
-char **dirTok(char **env)
-{
-	char **tokens;
-	char *tok;
-	int i, j;
-	char *dir;
+	for (i = 0; i < n && src[i] != '\0'; i++)
+		dest[i] = src[i];
+	for ( ; i < n; i++)
+		dest[i] = '\0';
 
-	dir = get_env(env);
-	i = 0;
-	j = 0;
-	while (env[j])
-		j++;
-	tokens = malloc(4096);
-	buffers3(tokens, NULL);
-
-	tok = strtok(dir, " :");
-	while (tok != NULL)
-	{
-		tokens[i] = tok;
-		i++;
-		tok = strtok(NULL, " :");
-	}
-	tokens[i] = NULL;
-	return (tokens);
+	return (dest);
 }
 
 /**
- * checkPath - checks command input against path
- * @dir: dirctory tokens
- * @command: command line input
- * Return: full path on success
- */
-char *checkPath(char **dir, char *command)
+* _strlen_const - Function to find the length of a constant string
+*@str: string to calculate the length
+*Return: the length of the string
+*/
+
+unsigned int _strlen_const(const char *str)
 {
-	struct stat st;
-	char *fullPath;
+	unsigned int i = 0;
 
-	if (command[0] == '/')
-		return (command);
+	while (str[i] != '\0')
+		i++;
 
-	while (*dir)
+	return (i);
+}
+
+/**
+* _strlen - Function to find the length of a string
+*@str: string to calculate the length
+*Return: the length of the string
+*/
+
+unsigned int _strlen(char *str)
+{
+	unsigned int i = 0;
+
+	while (str[i] != '\0')
+		i++;
+
+	return (i);
+}
+
+/**
+* _strcmp - Function to compare 2 strings and find if are equal
+*@s1: first string to compare
+*@s2: second string to compare
+*Return: 1 for equal, 0 if not
+*/
+
+int _strcmp(char *s1, char *s2)
+{
+	unsigned int i = 0;
+
+	while (s1[i] != '\0')
 	{
-		fullPath = pathCat(*dir, command);
-		if (stat(fullPath, &st) == 0)
-			return (fullPath);
-		dir++;
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
 	}
-	return (NULL);
+
+	return (1);
 }
 

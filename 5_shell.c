@@ -1,62 +1,56 @@
 #include "shell.h"
-
 /**
- * get_line - get line from command
- * Return: buffer
- */
-char *get_line(void)
+ * free_all_dp - frees all the memory including a double pointer
+ * @ptr: pointer to free
+ * Return: Nothing
+*/
+
+void free_all_dp(char **ptr)
 {
-	char *buf = NULL;
-	size_t bufsize = 0;
-	int test;
+	unsigned int i = 0;
 
-	test = getline(&buf, &bufsize, stdin);
-	buffers3(NULL, buf);
+	if (ptr == NULL)
+		return;
 
-	if (test == EOF)
+	while (ptr[i])
 	{
-		buffers1(NULL, NULL);
-		buffers2(NULL, NULL);
-		buffers3(NULL, NULL);
-		buffers4(NULL, NULL);
-		buffers5(NULL);
-		_exit(0);
+		free(ptr[i]);
+		i++;
 	}
-	return (buf);
+
+	if (ptr[i] == NULL)
+		free(ptr[i]);
+	free(ptr);
 }
 
 /**
- * split_line - split line into tokens
- * @line: command line input
- * Return: tokens
- */
-char **split_line(char *line)
+ * parent_free_commands - free the buffer and the commands
+ * @buffer: buffer in getline
+ * @commands: double pointer that store all the commands inserted
+ * Return: Nothing(void)
+*/
+
+void parent_free_commands(char *buffer, char **commands)
 {
-	char *dup_buf;
-	char *token;
-	char *toks;
-	char **tok;
-	int i = 1;
+	free(buffer);
+	free_all_dp(commands);
+}
 
-	dup_buf = _strdup(line);
-	token = strtok(line, DELIM);
-	while (token)
-	{
-		token = strtok(NULL, DELIM);
-		i++;
-	}
-	tok = malloc(4096);
-	buffers4(tok, NULL);
+/**
+* send_to_free - Function to send free when the child is not created
+*@buffer: buffer created by getline
+*@commands: array of commands
+*Return: Nothing(void)
+*/
 
-	toks = strtok(dup_buf, DELIM);
-	i = 0;
-	while (toks)
-	{
-		tok[i] = toks;
-		toks = strtok(NULL, DELIM);
-		i++;
-	}
-	tok[i] = '\0';
-	return (tok);
+void send_to_free(char *buffer, char **commands)
+{
+	if (commands == NULL)
+		parent_free_commands(buffer, commands);
+	/*on exit status*/
+	else if (_strcmp("exit", commands[0]))
+		get_out(buffer, commands);
+	else
+		parent_free_commands(buffer, commands);
 }
 
