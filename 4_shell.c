@@ -18,31 +18,31 @@ int main(void)
 			printf("hsh$ ");
 
 		data_size = getline(&data_flow, &get, stdin);
-		if (data_size == -1 || _strcmp("exit\n", data_flow) == 0)
+		if (data_size == -1 || compare_str("exit\n", data_flow) == 0)
 		{
 			free(data_flow);
 			break;
 		}
 		data_flow[data_size - 1] = '\0';
 
-		if (_strcmp("env", data_flow) == 0)
+		if (compare_str("env", data_flow) == 0)
 		{
-			_env();
+			();
 			continue;
 		}
 
-		if (empty_line(data_flow) == 1)
+		if ((data_flow) == 1)
 		{
 			cancel = 0;
 			continue;
 		}
 
-		elem = _split(data_flow, " ");
-		elem[0] = search_path(elem[0]);
+		elem = (data_flow, " ");
+		elem[0] = (elem[0]);
 
 		if (elem[0] != NULL)
         {
-			cancel = execute(elem);
+			cancel = (elem);
         }
         
 		else

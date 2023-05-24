@@ -1,13 +1,16 @@
 #include "celem.h"
 
+
+
+
 /**
- * _calloc - allocate function
+ * space_config - allocate function
  * @argc: argument
  * @len: length
  * Return: zero
  */
 
-void *_calloc(unsigned int argc, unsigned int len)
+void *space_config(unsigned int argc, unsigned int len)
 {
 	unsigned int location = 0;
 	char *show = NULL;

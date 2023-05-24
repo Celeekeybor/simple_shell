@@ -1,16 +1,13 @@
 #include "celem.h"
-
 /**
- * _getenv - receive environment var
- * @elem: element
- * Return: 0
- */
-
-char *_getenv(char *elem)
+* fetch_env - receive environment var
+* @elem: element
+* Return: 0
+*/
+char *fetch_env(char *elem)
 {
-	int num = 0, val;
-	int result;
-
+int num = 0, val;
+int result;
 	while (environ[num])
 	{
 		result = 1;
@@ -32,9 +29,9 @@ char *_getenv(char *elem)
 }
 
 /**
- * _env - write environment var
+ * environment - write environment var
 */
-void _env(void)
+void environment(void)
 {
 	int num = 0;
 
