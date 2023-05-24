@@ -1,51 +1,55 @@
 #include "main.h"
 
 /**
- * main - open shell, project base
- * Return: int
+ * main - shell project
+ * Return: zero
  */
 
 int main(void)
 {
-	char *buff = NULL, **args;
-	size_t read_size = 0;
-	ssize_t buff_size = 0;
-	int exit_status = 0;
+	char *data_flow = NULL, **elem;
+	size_t get = 0;
+	ssize_t data_size = 0;
+	int cancel = 0;
 
 	while (1)
 	{
 		if (isatty(0))
 			printf("hsh$ ");
 
-		buff_size = getline(&buff, &read_size, stdin);
-		if (buff_size == -1 || _strcmp("exit\n", buff) == 0)
+		data_size = getline(&data_flow, &get, stdin);
+		if (data_size == -1 || _strcmp("exit\n", data_flow) == 0)
 		{
-			free(buff);
+			free(data_flow);
 			break;
 		}
-		buff[buff_size - 1] = '\0';
+		data_flow[data_size - 1] = '\0';
 
-		if (_strcmp("env", buff) == 0)
+		if (_strcmp("env", data_flow) == 0)
 		{
 			_env();
 			continue;
 		}
 
-		if (empty_line(buff) == 1)
+		if (empty_line(data_flow) == 1)
 		{
-			exit_status = 0;
+			cancel = 0;
 			continue;
 		}
 
-		args = _split(buff, " ");
-		args[0] = search_path(args[0]);
+		elem = _split(data_flow, " ");
+		elem[0] = search_path(elem[0]);
 
-		if (args[0] != NULL)
-			exit_status = execute(args);
+		if (elem[0] != NULL)
+        {
+			cancel = execute(elem);
+        }
+        
 		else
+        {
 			perror("Error");
-		free(args);
+        }
+		free(elem);
 	}
-	return (exit_status);
+	return (cancel);
 }
-
