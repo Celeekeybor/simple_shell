@@ -1,42 +1,44 @@
 #include "main.h"
 
 /**
- * _strcmp - compares two strings
- * @s1: pointer 1
- * @s2: pointer 2
- * Return: result
+ * _strcmp - two strings check
+ * @elem1: first element
+ * @elem2: second element
+ * Return: true/false
  */
 
-int _strcmp(char *s1, char *s2)
+int _strcmp(char *elem1, char *elem2)
 {
-	while (*s1 && *s2)
+	while (*elem1 && *elem2)
 	{
-		if (*s1 != *s2)
-			return (*s1 - *s2);
+		if (*elem1 != *elem2)
+        {
+			return (*elem1 - *elem2);
+        }
 
-		s1++;
-		s2++;
+		elem1++;
+		elem2++;
 	}
 	return (0);
 }
 
 /**
- * _strcpy - function that copies the string pointed to by src
- * @dest: pointer
- * @src: ponter
- * Return: @dest
+ * _strcpy - function to duplicate two strings
+ * @location: pointer
+ * @path: ponter
+ * Return: @location
  */
-char *_strcpy(char *dest, char *src)
+char *_strcpy(char *location, char *path)
 {
-	char *c = dest;
+	char *c = location;
 
-	while (*src != '\0')
+	while (*path != '\0')
 	{
-		*dest = *src;
-		dest++;
-		src++;
+		*location = *path;
+		location++;
+		path++;
 	}
-	*dest = '\0';
+	*location = '\0';
 	return (c);
 }
 
@@ -49,10 +51,10 @@ char *_strcpy(char *dest, char *src)
 
 char **_split(char *str, char *sep)
 {
-	char *aux, **split_str;
-	int i = 0;
+	char *label, **split_str;
+	int num = 0;
 
-	aux = strtok(str, sep);
+	label = strtok(str, sep);
 	split_str = (char **)_calloc(100, sizeof(char *));
 
 	if (!split_str)
@@ -61,54 +63,51 @@ char **_split(char *str, char *sep)
 		return (NULL);
 	}
 
-	while (aux)
+	while (label)
 	{
-		split_str[i] = aux;
-		aux = strtok(NULL, sep);
-		i++;
+		split_str[num] = label;
+		label = strtok(NULL, sep);
+		num++;
 	}
 	return (split_str);
 }
 
 /**
  * _strcat - function that concatenates two strings
- * @dest: string
- * @src: string
- * Return: @dest
+ * @location: string lctn
+ * @path: string source
+ * Return: 0
  */
 
-char *_strcat(char *dest, char *src)
+char *_strcat(char *location, char *path)
 {
-	int a, b;
+	int trev, val;
 
-	for (a = 0; dest[a] != '\0'; a += 1)
+	for (trev = 0; location[trev] != '\0'; trev += 1)
 	{}
 
-	for (b = 0; src[b] != '\0'; b += 1)
+	for (val = 0; path[val] != '\0'; val += 1)
 	{
-		dest[a] = src[b];
-		a++;
+		location[trev] = path[val];
+		trev++;
 	}
-	dest[a] = '\0';
-	return (dest);
+	location[trev] = '\0';
+	return (location);
 }
 
 /**
- * _strlen - string length
- * @s: string
- * Return: result
+ * _strlen - size of string
+ * @cee: string
+ * Return: true/false
  *
  */
 
-int _strlen(char *s)
+int _strlen(char *cee)
 {
-	int i = 0;
+	int num = 0;
 
-	while (s[i] != '\0')
-		i++;
+	while (cee[num] != '\0')
+		num++;
 
-	return (i);
+	return (num);
 }
-
-
-
