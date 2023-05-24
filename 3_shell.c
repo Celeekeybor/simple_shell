@@ -1,12 +1,12 @@
 #include "celem.h"
 
 /**
- * execute - implement path
+ * implement - implement path
  * @param: parameter
  * Return: 0
  */
 
-int execute(char **param)
+int implement(char **param)
 {
 	int value = fork(), output;
 
