@@ -1,43 +1,49 @@
 #include "main.h"
 
 /**
- * _getenv - get env variables
- * @env_var: env variable
- * Return: env variable result, its content
+ * _getenv - receive environment var
+ * @elem: element
+ * Return: 0
  */
 
-char *_getenv(char *env_var)
+char *_getenv(char *elem)
 {
-	int i = 0, j;
-	int status;
+	int num = 0, val;
+	int result;
 
-	while (environ[i])
+	while (environ[num])
 	{
-		status = 1;
+		result = 1;
 
-		for (j = 0; environ[i][j] != '='; j++)
+		for (val = 0; environ[num][val] != '='; val++)
 		{
-			if (environ[i][j] != env_var[j])
-				status = 0;
+			if (environ[num][val] != elem[val])
+				result = 0;
 		}
-		if (status == 1)
-			break;
-		i++;
+		if (result == 1)
+    {
+        break;
+        
+    }
+			
+		num++;
 	}
-	return (&environ[i][j + 1]);
+	return (&environ[num][val + 1]);
 }
 
 /**
- * _env - prints environment
+ * _env - write environment var
 */
 void _env(void)
 {
-	int i = 0;
+	int num = 0;
 
-	while (environ[i])
+	while (environ[num])
 	{
-		printf("%s\n", environ[i]);
-		i++;
+		printf("%s\n", environ[num]);
+		num++;
 	}
 }
+
+
 
