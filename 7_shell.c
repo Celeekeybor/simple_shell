@@ -1,13 +1,13 @@
 #include "celem.h"
 
 /**
- * _strcmp - two strings check
+ * compare_str - two strings check
  * @elem1: first element
  * @elem2: second element
  * Return: true/false
  */
 
-int _strcmp(char *elem1, char *elem2)
+int compare_str(char *elem1, char *elem2)
 {
 	while (*elem1 && *elem2)
 	{
@@ -23,12 +23,12 @@ int _strcmp(char *elem1, char *elem2)
 }
 
 /**
- * _strcpy - function to duplicate two strings
+ * copy_str - function to duplicate two strings
  * @location: pointer
  * @path: ponter
  * Return: @location
  */
-char *_strcpy(char *location, char *path)
+char *copy_str(char *location, char *path)
 {
 	char *c = location;
 
@@ -43,19 +43,19 @@ char *_strcpy(char *location, char *path)
 }
 
 /**
- * _split - split string
+ * divide_str - split string
  * @str: string
  * @sep: separator
  * Return: divided path
  */
 
-char **_split(char *str, char *sep)
+char **divide_str(char *str, char *sep)
 {
 	char *label, **split_str;
 	int num = 0;
 
 	label = strtok(str, sep);
-	split_str = (char **)_calloc(100, sizeof(char *));
+	split_str = (char **)(100, sizeof(char *));
 
 	if (!split_str)
 	{
@@ -73,13 +73,13 @@ char **_split(char *str, char *sep)
 }
 
 /**
- * _strcat - function that concatenates two strings
+ * add_str - function that concatenates two strings
  * @location: string lctn
  * @path: string source
  * Return: 0
  */
 
-char *_strcat(char *location, char *path)
+char *add_str(char *location, char *path)
 {
 	int trev, val;
 
@@ -96,13 +96,13 @@ char *_strcat(char *location, char *path)
 }
 
 /**
- * _strlen - size of string
+ * len_str - size of string
  * @cee: string
  * Return: true/false
  *
  */
 
-int _strlen(char *cee)
+int len_str(char *cee)
 {
 	int num = 0;
 
