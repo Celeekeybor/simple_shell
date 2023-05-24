@@ -1,51 +1,52 @@
 #include "main.h"
 
 /**
- * search_path - search file between the path
- * @command: cmd
- * Return: cmd path
+ * search_path - show file source
+ * @argc: argument
+ * Return: true/false
  */
 
-char *search_path(char *command)
+char *search_path(char *argc)
 {
-	char *path = _getenv("PATH"), *path_cpy;
-	char **path_split;
-	char *path_concat = NULL;
-	int i = 0, path_len = 0;
+	char *source = _getenv("PATH"), *source_dup;
+	char **source_div;
+	char *source_add = NULL;
+	int mic = 0, source_size = 0;
 	struct stat info;
 
-	if (stat(command, &info) == 0)
-		return (command);
+	if (stat(argc, &info) == 0)
+		return (argc);
 
-	path_cpy = malloc(_strlen(path) + 1);
+	source_dup = malloc(_strlen(source) + 1);
 
-	path_cpy = _strcpy(path_cpy, path);
-	path_split = _split(path_cpy, ":");
+	source_dup = _strcpy(source_dup, source);
+	source_div = _split(source_dup, ":");
 
-	while (path_split[i])
+	while (source_div[mic])
 	{
-		path_len = _strlen(path_split[i]);
+		source_size = _strlen(source_div[mic]);
 
-		if (path_split[i][path_len - 1] != '/')
-			path_concat = _strcat(path_split[i], "/");
+		if (source_div[mic][source_size - 1] != '/')
+        {
+			source_add = _strcat(source_div[mic], "/");
 
-		path_concat = _strcat(path_split[i], command);
+		source_add = _strcat(source_div[mic], argc);
+        }
 
-		if (stat(path_concat, &info) == 0)
+		if (stat(source_add, &info) == 0)
 			break;
 
-		i++;
+		mic++;
 	}
 
-	free(path_cpy);
+	free(source_dup);
 
-	if (!path_split[i])
+	if (!source_div[i])
 	{
-		free(path_split);
+		free(source_div);
 		return (NULL);
 	}
 
-	free(path_split);
-	return (path_concat);
+	free(source_div);
+	return (source_add);
 }
-
