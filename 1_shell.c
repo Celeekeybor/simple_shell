@@ -1,20 +1,19 @@
 #include "main.h"
 
 /**
- * empty_line - checks if exists a empty line
- * @buff: line
- * Return: 0 or 1 (int)
+ * empty_line - emptiness
+ * @stats: line
+ * Return: tr/fl
  */
 
-int empty_line(char *buff)
+int empty_line(char *stats)
 {
-	int i;
+	int loop;
 
-	for (i = 0; buff[i] != '\0'; i++)
+	for (loop = 0; stats[loop] != '\0'; loop++)
 	{
-		if (buff[i] != ' ')
+		if (stats[loop] != ' ')
 			return (0);
 	}
 	return (1);
 }
-
